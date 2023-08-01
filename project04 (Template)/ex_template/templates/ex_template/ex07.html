@@ -1,0 +1,48 @@
+
+{% extends 'ex_template/base.html' %} 
+
+{% block title %}Example 07{% endblock %}
+{% block headline %}예제 7 (템플릿 with 태그){% endblock %}
+{% block content %}
+
+<!-- < with 태그 > -->
+<!-- 템플릿 처리 동안에 잠시 기억해둘 값을 변수에 저장해두는 기능 -->
+<!-- (특정 값을 변수에 저장해두는 기능) -->
+value : {{ value }} <br>
+<hr>
+
+{% with a=value %}
+    a : [{{ a }}] <br>
+{% endwith %}
+a : [{{ a }}]
+<hr>
+
+{% with name=info.name %}
+    올해의 인물: {{ name }}
+{% endwith %} 
+<br>
+{% with info.age as age %}  <!-- 별칭을 사용 -->
+    올해의 인물 나이: {{ age }}
+{% endwith %} 
+<br> 
+
+싱글라인 주석 : {# 템플릿 싱글라인 주석 #} <br>
+주석아님 : [{# 템플릿 
+        싱글라인 주석 #}] <br>
+
+여러줄 주석: 
+{% comment %}
+    템플릿
+    멀
+    티
+    라인 주석
+{% endcomment %}
+<br>
+{% comment '주석에 대한 설명' %}
+    주석에 대한 설명
+    이렇게 작성해도
+    브라우저에서
+    보여지지 않는다
+{% endcomment %}
+
+{% endblock %}

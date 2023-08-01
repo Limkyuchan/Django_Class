@@ -1,0 +1,28 @@
+
+{# 이 템플릿은 모든 템플릿의 기본 베이스 #}
+{# 이 템플릿을 다른 템플릿이 상속하여 block이 지정된 부분을 재정의하여 표현 #}
+{% load static %}   {# load static 작성 후 static 코드를 작성하면 됨 #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Exam Template{% endblock %}</title> {# 변경 가능성 있는 부분#}
+    <link rel="stylesheet" href="{% static 'ex_template/appstyle.css' %}">  {# css파일을 포함시켜라 #}
+</head>
+<body>
+    <div>상단메뉴</div>
+    <img src="{% static 'ex_template/iu.jpg' %}" width="200px" height="150px">
+    <h1>Exam Template</h1>
+    <hr>
+
+    <h3>{% block headline%}Headline{% endblock %}</h3>   {# 변경 가능성 있는 부분#}
+    <div class='contents'>
+        {% block content %}Content...{% endblock %}      {# 변경 가능성 있는 부분#}
+    </div>
+
+    <hr>
+    <div>하단메뉴</div>
+</body>
+</html>

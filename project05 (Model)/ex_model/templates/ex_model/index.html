@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    <h1>학생목록</h1>
+    <hr>
+    <form method="post">
+        {% csrf_token %}
+        <a href="{% url 'ex_model:addform' %}">추가하기</a>
+    </form>
+    {% if info_list %}
+    <ul>
+        {% for info in info_list %}
+            <li>{{ info.id }} - <a href="{% url 'ex_model:detail' info.id %}">{{ info.name }}</a>({{ info.age }}) : {{ info.regdate }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>목록이 존재하지 않습니다.</p>
+    {% endif %}
+</body>
+</html>

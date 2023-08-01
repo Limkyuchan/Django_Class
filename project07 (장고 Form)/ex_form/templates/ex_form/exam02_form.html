@@ -1,0 +1,48 @@
+
+
+{# 기본형태 tr로 생성 #}
+<form method="post">
+    {% csrf_token %}
+    {{ form }}             
+    <input type="submit" value="전송">
+</form>
+
+<hr>
+
+{# 테이블 형태로 묶어서 생성 #}
+<form method="post">
+    {% csrf_token %}
+    <table>
+        {{ form }}        
+    </table>
+    <input type="submit" value="전송">
+</form>
+
+<hr>
+
+{# p태그로 생성됨 #}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}         
+    <input type="submit" value="전송">
+</form>
+
+<hr>
+
+{# 리스트(ul) 형태로 생성됨 #}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}         
+    <input type="submit" value="전송">
+</form>
+
+<hr>
+
+{# 직접 방식을 선택 (속성값 지정) #}
+{{ form.errors }}    {# 유효성 검증 (전체 에러) #}
+<form method="post">
+    {% csrf_token %}
+    이름: {{ form.name }} [{{ form.name.errors}}]   {# name에 대한 에러 #}
+    나이: {{ form.age }} [{{ form.age.errors}}]     {# age에 대한 에러 #}        
+    <input type="submit" value="전송">
+</form>

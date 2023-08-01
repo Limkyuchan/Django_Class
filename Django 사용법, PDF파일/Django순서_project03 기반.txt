@@ -1,0 +1,27 @@
+1. 프로젝트 생성					- django-admin startproject mysite
+   폴더 위치로 이동					- cd ...
+2. 서비스 구동(해당 VSCode에서)			- py.manage.py runserver
+3. db테이블 생성					- py.manage.py migrate
+4. 관리자 계정 생성				- py.manage.py createsuperuser
+5. 앱 생성					- py.manage.py startapp polls
+   앱 에서 views와 urls 연결			- urls 파일 생성 및 urlpatterns에서 views 연결
+   views에서 함수 작성				- def index(request): ...
+   mysite에서 앱을 포함하도록 include		- include("mysite.urls")
+   앱 등록 (settings에서 INSTALLED APPS)	- 앱 등록
+6. Template 활용 (HTML 코드)			- index.html 코드 작성
+7. index.html, urls, views 코드를 서로 연결하며 코드를 작성
+
+
+
+
+☆ 흐름을 파악하기 위해서 (연습을 위해)
+index.html 작성하고 -> urls 작성하고 -> views 작성 함.
+
+
+☆ 원래는 설계하는 대로 따로 작성해야함.
+model 따로 작성하고, view 따로 작성하고, template 따로 작성.
+==> url로 view를 선택,  그걸로 model을,  그걸로 template를 선택하여 작동.
+
+
+
+CSS 프레임워크 : Bootstrap 부트스트랩

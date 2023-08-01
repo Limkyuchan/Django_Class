@@ -1,0 +1,25 @@
+{% extends 'board/base.html' %}
+
+{% block title %}ListView{% endblock %}
+{% block headline %}게시판 목록{% endblock %}
+{% block content%}
+ 
+<table style="width:300px">
+    <tr style="background-color:lightgrey">
+        <th>번호</th>
+        <th>제목</th>		
+        <th>작성자</th>
+        <th>조회수</th>
+    </tr>
+    {% for board in object_list%}  {# object_list = Board.objects.all() #}
+    <tr style="text-align:center">   
+        <th>{{ board.id }}</th>
+        <td><a href="{% url 'board:detail' board.id %}">{{ board.title }}</a></td>		
+        <td>{{ board.writer }}</td>
+        <td>{{ board.readcount }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<a href="{% url 'board:create' %}"><button>글 등록</a></button>
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>입력 양식</title>
+</head>
+<body>
+    <br>
+    <form action="{% url 'example:selectresult' %}" method="post">
+        {% csrf_token %}
+        <label><b>학력&ensp;</b></label>
+        <select name="education"> 
+            <option>박사</option>
+            <option>석사</option>
+            <option>대학교 졸업</option>
+            <option>고등학교 졸업</option>
+            <option>중학교 졸업</option>
+        </select>
+    <br><br>
+        <label><b>소속국가&ensp;</b></label>
+        <select name="nation"> 
+            <option>대한민국</option>
+            <option>미국</option>
+            <option>일본</option>
+            <option>호주</option>
+            <option>캐나다</option>
+        </select>
+    <br><br>
+        <label><b>관심분야&ensp;</b></label>
+        <select name="interest" multiple> 
+            <option>컨설팅</option>
+            <option>프로듀서</option>
+            <option>프로그래머</option>
+            <option>서버관리자</option>
+        </select>
+    <br><br>
+        <input type="submit" value="전송">
+        <input type='reset'>
+    </form>
+</body>
+</html>

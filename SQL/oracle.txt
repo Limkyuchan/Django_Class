@@ -1,0 +1,34 @@
+[ oracle ]
+
+< cmd에서 >
+
+sqlplus
+system
+1234
+
+< 계정생성 >
+
+CREATE USER C##TESTER IDENTIFIED BY 1234;
+
+GRANT CONNECT, RESOURCE, UNLIMITED TABLESPACE TO C##TESTER;
+
+EXIT
+
+--------------------
+sqlplus c##tester/1234	( 한번에 로그인 )
+
+< 테이블생성 (""는 식별자, ''는 문자열) >
+CREATE TABLE "INFO" ("ID" NUMBER, "NAME" VARCHAR2(100),"BIRTH"DATE,"BTYPE" CHAR(2));	
+
+DESC INFO; (테이블 정보)
+
+
+< DML >
+CREATE TABLE
+
+
+
+
+
+
+

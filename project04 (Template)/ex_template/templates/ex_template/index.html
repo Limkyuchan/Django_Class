@@ -1,0 +1,21 @@
+
+{# 큰 틀을 그대로 가져오고 block으로 지정한 3개를 재정의 해서 사용 #}
+
+{% extends 'ex_template/base.html' %}   {# base.html을 상속하겠다! #}
+
+{# title 블록과 content 블록을 재정의해서 사용하겠다. #}
+{% block title %}Index{% endblock %}
+{% load static %}
+{% block content %}
+    <img src="{% static 'ex_template/iu.jpg' %}" width="100px" height="50px">
+    <ol>
+        <li><a href="/ex/ex01/">ex01</a></li>
+        <li><a href="/ex/ex02/">ex02</a></li>
+        <li><a href="/ex/ex03/">ex03</a></li>
+        <li><a href="/ex/ex04/">ex04</a></li>
+        <li><a href="/ex/ex05/">ex05</a></li>
+        <li><a href="/ex/ex06/">ex06</a></li>
+        <li><a href="/ex/ex07/">ex07</a></li>
+        <li><a href="/ex/ex08/">ex08</a></li>
+    </ol>
+{% endblock %}

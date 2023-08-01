@@ -1,0 +1,149 @@
+[ Django 사용법 ]
+- project01
+
+
+< Part 01 >
+
+1) 프로젝트 만들기
+django-admin startproject mysite
+
+2) 개발 서버 - Django 프로젝트가 제대로 동작하는지 확인
+py manage.py runserver 
+
+3) 설문조사 앱 만들기
+py manage.py startapp polls
+
+- polls/views.py 작성 (def index... )
+- polls/urls.py 작성 (urlpatterns...)
+- mysite/urls.py 작성 (include("polls.urls"))
+
+4) 잘 작동하는지 확인
+py manage.py runserver
+
+
+
+< Part 02 >
+
+1) 데이터베이스 설치
+python manage.py migrate
+- migrate 명령은 INSTALLED_APPS의 설정을 탐색. 모델의 변경 사항들과 db의 스키마의 동기화 발생
+- mysite/settings.py 의 데이터베이스 설정 및 데이터베이스테이블 생성
+
+2) 모델 만들기
+polls/models.py 작성 (Question, Choice 클래스 작성)
+
+3) 모델 활성화
+- 현재 프로젝트에게 polls 앱이 설치되어있음을 알림
+mysite/settings.py 에서 INSTALLED_APPS 작성 (poll.apps.PollsConfig)
+
+- makemigrations 실행을 통해 모델이 변경 및 생성됨을 알림
+py manage.py makemigrations polls
+
+- ( polls에 작성된 SQL문장 확인 )
+py manage.py sqlmigrate polls 0001
+
+- 데이터베이스에 모델과 관련된 테이블 생성
+py manage.py migrate
+
+# Model 변경 시
+# 1) models.py 에서 모델을 변경
+# 2) python manage.py makemigrations을 통해 변경사항에 대한 마이그레이션을 생성
+# 3) python manage.py migrate 명령을 통해 변경사항을 데이터베이스에 적용
+
+
+
+[ API 가지고 놀기 ]
+
+python manage.py shell				# 파이썬 쉘 실행 (장고 settings 환경변수)
+
+from polls.models import Choice, Question
+Question.objects.all()				# Question의 전체 저장 값 확인
+
+from django.utils import timezone
+q = Question(question_text="What's new?", pub_date=timezone.now())	
+							# 객체 생성, Question 테이블에 값을 저장
+q.save()						# 저장
+q.id							# 값 1 출력
+q.question_text					# What's new? 출력
+q.pub_date						# 저장 당시 현재시간 출력
+	
+q.question_text="What's up?"
+q.save()						# 저장된 값 변경 및 저장
+
+Question.objects.all()				# Question의 전체 저장 값 확인
+
+polls/models.py 에서 함수 __str__ 추가	# 관리사이트에서 객체의 표현이 사용도 되고 편하게 보기 위함.
+polls/models.py 에서 impot datetime, from django.utils import timezone 추가
+
+이후 값이 변경되면 exit()후 다시 shell 시작
+
+from polls.models import Choice, Question
+
+filter, get, pk로 저장된 자료 검색 가능
+Question.objects.filter(id=1)			# id 1인 값 출력, filter 는 존재하지 않는 자료 찾을 시 오류 발생 X
+Question.objects.get(id=2)			# get 이용시 존재하는 것만 가져옴. 존재하지 않는것 찾을 시 오류
+Question.objects.pk(id=1)			# pk(primary key) primary-key
+
+q = Question.objects.get(pk=1)		# pk 값이 1인 것을 q가 참조
+q.choice_set.all()				# pk 값이 1인 것의 choice 전체 값 출력
+
+q.choice_set.create(choice_text="Not much", votes=0)		# choice_text 저장
+q.delete()						# 삭제
+
+
+
+[ Django 관리자 ]
+
+관리자 생성하기
+py manage.py createsuperuser
+
+Username, Email, passwd 입력 후 
+py manage.py runserver 실행
+
+http://127.0.0.1:8000/admin/ 사이트 접속 후 로그인
+
+polls/admin.py 에서 설정 값 추가
+from django.contrib import admin
+from .models import Question
+admin.site.register(Question)
+
+
+
+
+< Part 03 >
+
+1) 뷰 추가하기 
+polls/view.py 에서 detail, results, vote 함수 추가
+polls/urls.py 에서 path() 호출 추가
+
+2) 템플릿 추가
+polls/templates/polls/index.html 에서 코드 작성
+템플릿을 이용하여 polls/vies.py 에서 index 뷰를 업데이트
+(A Shortcut -> render() 활용)
+
+3) 404 에러 일으키기
+
+4) URL의 이름공간 정하기
+
+
+
+
+< Part 04 >
+
+1) 간단한 폼 쓰기
+polls/template/polls/detail.html 템플릿 수정
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

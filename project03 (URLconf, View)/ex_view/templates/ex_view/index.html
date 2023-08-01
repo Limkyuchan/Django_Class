@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    <h1>Example View 메인</h1>
+    현재시간: {{ now1 }}      <!-- view.py에서 전달한 이름인 now -->
+    <hr>
+    <div id="content1">
+        <h3>Request 이해하기(함수형 뷰)</h3>
+        <ol>                      <!-- 경로/? 파라미터-->
+            <li>GET요청1:<a href="get1/?n1=10&n2=20&n3=hello">get1/</a></li>    <!-- 하드 코딩 -->
+            <li>GET요청2:<a href="get2/10/20/hello">get2/</a></li>
+
+            <li>GET요청1:<a href="{% url 'exview:get1' %}?n1=10&n2=20&n3=hello">get1/</a></li>    <!-- reverse 활용 -->
+            <li>GET요청2:<a href="{% url 'exview:get2' '100' '200' 'hi' %}">get2/</a></li>        <!-- url 설정을 가지고 경로를 만든다 -->
+
+            <li>POST요청1:    <!-- form에 입력값 없으면 현재페이지로 경로 이동. action으로 경로를 지정할 수 있다. -->
+                <form action="post1/" method="post">     <!-- method="post"는 post 방식으로 전송 -->
+                    {% csrf_token %}                     <!-- form에서 POST 방식으로 전송할 때는 반드시 -->
+                    <input type="text" name="n1">
+                    <input type="text" name="n2">
+                    <input type="submit" value="요청 및 전송">
+                </form>
+            </li>
+            <li>POST요청2: 
+                <form action="post2/hello/123/" method="post">   
+                    {% csrf_token %}  
+                    <input type="text" name="n1">
+                    <input type="text" name="n2">
+                    <input type="submit" value="요청 및 전송">
+                </form>
+            </li>
+
+            <!-- get과 post를 한번에 처리하는 방법 (view에서 함수를 하나로)-->
+            <li>GETPOST요청:<a href="getpost1/">getpost1</a></li>   <!-- getpost1 요청-->
+            <li>GETPOST요청: 
+                <form action="getpost1/" method="post">   
+                    {% csrf_token %}  
+                    <input type="text" name="n1">
+                    <input type="text" name="n2">
+                    <input type="submit" value="요청 및 전송">
+                </form>
+            </li>
+
+        </ol>
+    </div>
+
+    <div id="content2">
+        <h3>Request 이해하기(클래스형 뷰)</h3>
+        <ol>    <!--   ol>li*5 : ol에서 li를 5개 작성하겠다.   -->
+            <li>GET요청3:<a href="get3/?n1=10&n2=20&n3=hello">get3/</a></li>
+            <li>GET요청4:<a href="get4/10/20/hello">get4/</a></li>
+            <li>POST요청3:     
+                <form action="post3/" method="post">    
+                    {% csrf_token %}                
+                    <input type="text" name="n1">
+                    <input type="text" name="n2">
+                    <input type="submit" value="요청 및 전송">
+                </form>
+            </li>
+            <li>POST요청4: 
+                <form action="post4/hello/123/" method="post">   
+                    {% csrf_token %}  
+                    <input type="text" name="n1">
+                    <input type="text" name="n2">
+                    <input type="submit" value="요청 및 전송">
+                </form>
+            </li>
+            <li>GETPOST요청2:<a href="getpost2/">getpost2</a></li>  
+            <li>GETPOST요청2: 
+                <form action="getpost2/" method="post">   
+                    {% csrf_token %}  
+                    <input type="text" name="user">
+                    <input type="text" name="pwd">
+                    <input type="submit" value="요청 및 전송">
+                </form>
+            </li>
+
+        </ol>
+</body>
+</html>

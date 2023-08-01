@@ -1,0 +1,31 @@
+{% extends 'board/base.html' %}
+
+{% block title %}UpdateView{% endblock %}
+{% block headline %}내용 수정{% endblock %}
+{% block content%}
+
+<h4>기본 Form</h4>
+
+<form action="{% url 'board:update' object.id %}" method="post">
+    {% csrf_token %}
+    <p>Title : <input type="text" name="title" value={{ object.title }}></p>
+    <p>Writer: <input type="text" name="writer" value={{ object.writer }}></p>
+    Content<br>
+    <textarea name="content" rows="7" cols="50">{{ object.content }}</textarea>
+    <br>
+    <input type='submit' value='수정'>
+</form>
+
+<hr><br>    
+
+<h4>장고 Form</h4>
+<form action="{% url 'board:update' object.id %}" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table}}
+    </table>
+    <br>
+    <input type="submit" value="수정">
+</form>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+
+{% extends 'ex_template/base.html' %} 
+
+{% block title %}Example 03{% endblock %}
+{% block headline %}예제 3 (템플릿 태그 for){% endblock %}
+{% block content %}
+
+{{ name_list.0 }} <br>
+{{ name_list.1 }} <br>
+{{ name_list.2 }} <br>
+<hr>
+<ul>
+    {% for name in name_list %}
+        <li>이름: {{ name }}</li>
+    {% endfor %}
+</ul>
+<hr>
+<ul>
+    {% for name in name_list %}
+        <li>        <!-- forloop 는 for문 안에서만 사용 가능 -->
+            이름: {{ name }} <br>
+            forloop.counter: {{ forloop.counter }} <br>
+            forloop.counter0: {{ forloop.counter0 }} <br>
+            forloop.revcounter: {{ forloop.revcounter }} <br>
+            forloop.revcounter0: {{ forloop.revcounter0 }} <br>
+            forloop.first: {{ forloop.first }} <br>
+            forloop.last: {{ forloop.last }} <br>
+        </li>
+    {% endfor %}
+</ul>
+<hr>
+<ul>
+    {% for info in info_list %}
+        <li>
+            {{ info.name }}: {{ info.age }}
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List</title>
+    <style>
+		table, th, td { border: 1px solid black}
+	</style>
+</head>
+<body>
+    <table style="width:300px">
+		<tr style="background-color:lightgrey">
+			<th>번호</th>
+			<th>제목</th>		
+			<th>작성자</th>
+			<th>조회수</th>
+		</tr>
+        {% for board in board_list%}
+        <tr style="text-align:center">   
+            <td><b>{{ board.id }}</b></td>
+			<td><a href="{% url 'board:detail' board.id %}">{{ board.title }}</a></td>		
+			<td>{{ board.writer }}</td>
+			<td>{{ board.readcount }}</td>
+        </tr>
+        {% endfor %}
+	</table>
+	<br>
+	<a href="{% url 'board:add' %}"><button>글 등록</button></a>
+</body>
+</html>

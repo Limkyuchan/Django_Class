@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폼 결과 페이지</title>
+    <style>
+        table, th, td { border: 1px solid black;}
+    </style>
+</head>
+<body>
+    <h1>로또 번호 자동 생성</h1>
+    <hr>
+    <table>
+        <tr style="background-color: lightgrey">
+            <th>No</th>
+            <th colspan="6">생성번호</th>
+        </tr>
+        {% for i in total_list %}
+            <tr>
+                <th align="center">{{ forloop.counter }}</th>
+                {% for j in i %}
+                    <td align="center">{{ j }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <form>
+        <a href="{% url 'example:index' %}">홈으로</a>
+    </form>
+</body>
+</html>

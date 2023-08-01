@@ -1,0 +1,83 @@
+[ Django로 웹 사이트 만들기 ]
+- project02
+
+cmd 열고 개발 할 폴더로 이동 (cd)
+django-admin startproject mysite (프로젝트 생성)
+- code로 열기 후 settings에서 기본설정 변경 (ko-kr, Asia/Seoul)
+
+py manage.py migrate (db 테이블 생성)
+# 테이블을 생성해야 관리자가 생성된다. 테이블 없이 관리자 생성 시 오류발생
+
+py manage.py createsuperuser (관리자 생성 -> model을 관리하기 위함.)
+
+py manage.py runserver (서비스 실행)
+
+
+python manage.py startapp bookmark (북마크 앱 생성)
+
+bookmark 앱의 models.py 에서 코드를 작성 (db 테이블 생성)
+
+코드 작성 후 mysite/setting.py 에서 INSTALLED_APPS 에서 코드 추가
+-> bookmark.apps.BookmarkConfig 를 추가
+
+py manage.py migrate (등록한 코드를 db.sqlite3에 연결)
+
+py manage.py runserver (서비스 실행)
+http://127.0.0.1:8000/admin 으로 로그인.
+
+bookmark/admin.py 에서 코드 작성
+admin.site.register(Bookmark)
+
+------------------- Django MTV준비 완료 --------------------
+
+< 홈페이지 상에서 목록 만들기 >
+py manage.py shell
+from bookmark.models import Bookmark
+Bookmark.objects.all()	(Bookmark의 전체 목록을 확인)
+exit()
+-------------------------
+
+
+bookmark/views.py에서 함수 작성
+bookmark/urls.py 생성 후 저장 (view와 연결)
+mysite/urls.py 코드 추가 (bookmark의 urls와 연결)
+
+bookmark/templates/bookmark/index.html 작성 (html코드)
+bookmark/views.py 에서 함수 수정
+-> return 값으로 bookmark/index.html, context를 render 
+
+
+----------------------------------------------------
+
+< bookmark 에서 버튼을 추가하기 >
+bookmark/templates/bookmark/index.html 코드 수정
+-> (regist) 버튼 추가
+bookmark/views.py 에서 regist 함수 추가
+-> return 값으로 bookmark/regist.html 을 render
+regist.html 생성 후 북마크 추가 코드 작성
+
+bookmark/ursl.py 에서 regist_proc 작성
+bookmark/view.py 에서 regist_proc 함수 작성
+
+새 북마크 등록버튼 클릭 시 CSRF 검증 실패(403오류) => 위조를 방지하기 위함
+-> regist.html 에서 {% csrf_token %} 코드를 추가
+
+
+
+< 등록된 값을 models을 통해서 db에 저장 >
+bookmark/views.py 의 regist_proc 함수를 수정
+bk = Bookmark(title=title, url=url)
+bk.save()
+
+동일한 값을 등록하려 하면 오류발생 -> unique 제약조건에 의해서 오류발생
+
+bookmark/urls.py 에서 app_name 을 등록 (namespace)
+{% url 'bookmark:regist' %} : bookmark에서 regist 이름의 url을 써라
+
+
+
+
+
+
+
+

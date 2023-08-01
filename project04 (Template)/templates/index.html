@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="{% static 'sitestyle.css' %}">
+    <link rel="stylesheet" href="{% static 'ex_template/appstyle.css' %}">
+</head>
+<body>
+    <h1>Index</h1>
+    접속자 : {{ name }} <br>
+    <h3>현재 시간 : {{ now }}</h3>   <!-- 템플리 변수 -->
+    <hr>
+    <img src="{% static 'vayne.jpg' %}" width="150px" height="100px">
+    <img src="/static/vayne.jpg" width="150px" height="100px">
+    <img src="/static/ex_template/iu.jpg" width="150px" height="100px">
+</body>
+</html>

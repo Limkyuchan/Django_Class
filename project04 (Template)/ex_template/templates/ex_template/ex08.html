@@ -1,0 +1,26 @@
+
+{% extends 'ex_template/base.html' %} 
+
+{% block title %}Example 08{% endblock %}
+{% block headline %}예제 8 (템플릿 escape){% endblock %}
+{% block content %}
+
+{% comment 'escape' %}
+    문자열에 들어있는 태그가 브라우저에서 해석되지 않도록
+    특수문자로 변환하는 것
+{% endcomment %}
+
+<h1>Hello</h1>
+결과: {{ html }}(이스케이프 되어 응답)   {# 기본적으로 escape 적용 #}
+
+{% autoescape off%}
+결과: {{ html }}            {# escape 제거 방법1 #}
+{% endautoescape %}
+
+결과: {{ html }}            {# escape 적용 #}           
+
+결과: {{ html|safe }}       {# escape 제거 방법2 #}
+
+{# 기본동작이 escape로 시켜주는데 굳이 코드를 숨길 필요가 없다면 |safe 를 함께 사용#}
+
+{% endblock %}

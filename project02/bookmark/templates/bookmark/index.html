@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    <h1>북마크 목록</h1>
+    <ul>
+        {% for bk in result %}
+            <li><a href="{{bk.url}}">{{bk.title}}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'bookmark:regist' %}"> <button>추가</button></a>
+</body>
+</html>

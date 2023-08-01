@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File List</title>
+</head>
+<body>
+    <h1>업로드 파일 목록</h1>
+    <hr>
+    <ul>
+    {% for file in list %}   
+        <li>{{ file.id }}. <a href="/media/{{ file.file }}" download>{{ file.title }}</a></li>
+                        {# 클릭 시 다운로드 되게 하기 위해서는 a태그에 download를 넣으면 된다. #}
+        <img src="/media/{{ file.file }}" width="100px" height="50px">
+        <a href="{% url 'ex_upload:delete' file.id %}"><button>삭제</button></a>
+    {% endfor %}    
+    </ul>
+</body>
+</html>

@@ -1,0 +1,84 @@
+< SQL 용어 >
+
+테이블 : Relation(Table)
+값이 들어간 가로 한 줄 : Record or Row(행)
+값이 들어간 세로 한 줄 : Column(열)
+한 블럭 : 데이터 (표의 한 블럭)
+열 이름 (속성)
+
+INSERT INTO "INFO" ~ 
+SELECT * FROM "INFO";
+UPDATE "INFO" SET ~ 
+DELETE FROM "INFO" ~
+
+
+세미콜론 ; 은 한 문장의 끝에
+""  : 식별자 (이름)
+'' : 문자자료형 (상수)
+
+
+
+% = 0개 이상 
+_ = 1글자
+
+|| = 컬럼이 하나로 합쳐짐 (append 기능)	
+-> SELECT "ID"||"NAME" FROM "INFO" WHERE "ID"=1;
+
+DISTINCT = 중복값 제거
+-> SELECT DISTINCT * FROM "INFO"; 
+
+ORDER BY = 정렬(default는 오름차순) (ASC : 오름차순 / DESC : 내림차순 )
+-> SELECT "NAME", "BIRTH" FROM "INFO" ORDER BY "ID";
+-> SELECT "NAME", "BIRTH" FROM "INFO" ORDER BY "BIRTH" ASC;
+
+정렬한 결과가 동등할 경우 ID로 추가 정렬한다.
+-> SELECT "ID", "NAME", "BTYPE" FROM "INFO" ORDER BY "BTYPE" DESC, "ID";
+
+
+
+< 제약(CONSTRAINT)조건 설정 >
+
+고유한 값 설정 : PRIMARY KEY (제약 설정)
+-> 보통 ID값을 활용하여 고유한 값으로 저장되게 끔 작성
+
+
+
+
+DDL
+- CREATE (테이블 생성)
+- DROP (테이블 삭제)
+- ALTER (테이블 정보 수정)
+ALTER TABLE "SCORE" ADD CONSTRAINT "PK_SCORE" PRIMARY KEY ("ID");
+
+
+
+
+정규화 : 함수적 종속을 테이블을 통해 나누는 것 (여러개의 테이블 생성)
+(INFO, SUBJECT, SCORE 를 구분하여 3개의 테이블을 생성)
+
+
+
+< 집계함수 >
+1) COUNT (카운트)
+SELECT COUNT(*) FROM "INFO" WHERE BTYPE='A';
+
+
+
+
+< SQL ANSI 문법 ( JOIN ~ ON ) >
+
+SELECT * FROM "SCORE" 
+	JOIN "SUBJECT" 
+	ON ("SCORE".SUBJECT_CODE="SUBJECT".SUB_CODE) 
+	ORDER BY "ID";
+
+
+
+
+
+
+
+
+
+
+

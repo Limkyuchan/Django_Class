@@ -1,0 +1,43 @@
+
+{% extends 'ex_template/base.html' %} 
+
+{% block title %}Example 04{% endblock %}
+{% block headline %}예제 4 (템플릿 태그 if){% endblock %}
+{% block content %}
+
+{% if value == 100 %}
+    {{ value }}
+{% endif %}
+
+
+{% if name_list %}
+    name_list|length: {{ name_list|length }}
+{% else %}
+    name_list is empty!
+{% endif %}
+
+
+{% if info_list %}
+    <ol>
+        {% for info in info_list %}
+            <li>{{ info }}</li>
+        {% endfor %}
+    </ol>
+{% else %}
+    info_list is empty!
+{% endif %}
+
+
+{% if value > 90 %}
+    A
+{% elif value > 80 %}
+    B
+{% elif value > 70 %}
+    C
+{% elif value > 60 %}
+    D
+{% else  %}
+    F
+{% endif %}
+
+{% endblock %}

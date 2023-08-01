@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Form</title>
+</head>
+<body>
+    <form action="{% url 'ex_model:addform' %}" method='post'>
+        {% csrf_token %}
+        <p>이름 : <input type="text" name="name" placeholder="이름 입력"></p>
+        <p>나이: <input type="text" name="age" placeholder="나이 입력"></p>
+        자기소개<br>
+        <textarea name="intro" rows="7" cols="50" placeholder="여기에 적으세요"></textarea>
+        <br>
+        <input type="submit" value="추가">
+    </form>
+</body>
+</html>

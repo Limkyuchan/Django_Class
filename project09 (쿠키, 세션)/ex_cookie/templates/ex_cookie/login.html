@@ -1,0 +1,10 @@
+
+
+<form method="post">
+    {% csrf_token %}                     
+    <input type='text' name='id' value='{{ remember_id }}'><br>  {# remember 값이 있으면 value로 고정 값 출력 #}            
+    <input type='password' name='pw'><br>                        {# remember 값이 있으면 체크박스를 checked로 고정 #}
+    <input type='checkbox' name='remember' value='1' {% if remember_id %}checked{% endif %}>
+    아이디 기억하기
+    <input type='submit' value='로그인'>
+</form>

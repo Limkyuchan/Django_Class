@@ -1,0 +1,186 @@
+[ Django 사용법 ]
+- project03
+
+
+< 프로젝트 작성 및 서비스 구동>
+django-admin startproject mysite
+
+겉 파일 명 변경 (mysite -> proejct03)
+ren mysite project03
+
+mysite/settings.py 에서 "ko-kr", "Asia/Seoul"로 변경
+
+해당파일 위치 cmd에서 py manage.py runserver 		(서비스 구동)
+-> ctrl + c : 서비스 종료
+
+
+
+< db 테이블 생성 및 관리자 계정>
+py manage.py migrate						(db.sqlite3 생성됨)
+
+py manage.py createsuperuser					(관리자 계정생성)
+
+
+
+
+< 앱 생성 및 기본 설정, 앱 등록>
+py manage.py startapp ex_view					(ex_view 앱 생성)
+
+ex_view/urls.py 파일 생성					(urls 파일 생성)
+=> urlpatterns 에서 views.index로 이동하도록
+=> views 에서 index함수를 작성					(views/index 함수 작성)
+
+mysite/urls.py 에서 ex_view를 include			(앱을 포함하도록)
+-> path('ex_view/', include('ex_view.exurls'))
+
+mysite/settings 안의 INSTALLED APPS 에서 앱을 등록 
+-> ex_view.apps.ExViewConfig					(앱 등록)
+
+
+
+
+< Template 활용 및 HTML코드 작성 >
+mysite/settings.py 에서 TEMPLATES 의 APP_DIRS : True 는
+"각 앱에서 Templates를 만들면 알아서 인식하겠다" 를 의미
+
+각 앱에서 templates 폴더를 만들 때에는 앱 이름의 폴더를 추가로 작성.
+ex) ex_view/templates/ex_view/index.html 			(templates.index.html 페이지 생성)
+
+ex_views/templates/index.html 코드 작성
+(템플릿을 선택해서 응답을 줄 때 views.py 에서 return 값으로 render를 사용)
+
+
+
+
+< [함수형 뷰] index.html의 GET, POST요청에 대한 응답 작성 >
+---> urls, views, html 코드 3개를 추가 및 수정
+>>>>> views.py에 함수 작성시   urls.py  에 경로를 꼭 연결해주어야 한다. <<<<<
+
+index.html 안의 GET요청에 대한 응답 코드 작성			(ex_veiw/url 코드 작성)
+=> ex_view/urls 에서 경로를 인식할 수 있도록
+	 path('get1/', views.get1) 추가
+ 
+ex_view/views 에서 get1에 대한 함수를 작성			(get 함수 작성)
+...
+... (get1, get2, post1 에 대한 views, urls, html코드를 작성)
+
+
+(POST 방식) 
+POST 방식으로 전송 시 Body 내용은 개발자 도구 Payload 에서 확인가능
+※※ form 을 작성하는데 POST 방식으로 전송할 때는 변조를 방지하기 위해 CSRF 토큰을 사용.
+- 서버에서 해당 form을 만들었다는 것을 증명할 수 있게 끔 
+- HTML 코드 <form> 에서 {% csrf_token %} 을 작성
+
+
+
+
+< [클래스형 뷰] >
+
+함수형 뷰는 해당 함수를 바로 호출하지만, 클래스형 뷰 사용 시 .as_view() 를 붙여야 한다.
+-> ex)  path('get3/', views.ExamGet3.as_view())
+
+get요청을 처리할 때는 get 매서드가 처리.   ==>  get으로 함수를 작성해야 한다.
+post요청을 처리할 때는 post 매서드가 처리.  ==>  post으로 함수를 작성해야 한다.
+ 
+
+
+
+< reverse >
+파이썬 코드 참조
+ex_view / exurls.py
+ex_view / views.py
+ex_view / index.html
+
+
+
+
+
+[ Template ]
+- project04
+
+- 템플릿 사용 시 render 함수를 사용
+- 템플릿에서는 로직이 정의되는 것이 아닌 사용자에게 보여질 형태만 정의
+- {{  }} , {%  %} : 장고가 처리할 코드
+
+
+< mysite/settings 탬플릿 설정 설명 >
+
+DIRS : 템플릿을 검색할 설정
+APP_DIRS = True : 각각의 앱들마다 템플릿 폴더 안에서 파일을 찾게 되어있다.
+
+1. DIRS 에 생성한 템플릿 파일경로를 추가
+# 템플릿 검색 경로 지정
+import os
+template_dir = os.path.join(BASE_DIR, 'templates')
+'DIRS': [template_dir],
+
+2. render 함수를 사용하여 html 경로를 찾을 때 
+DIRS 디렉토리에서 먼저 index.html 코드를 찾는다.
+없으면 각 앱에서 index.html을 찾는다.
+그렇기 때문에 각 앱에서 template 안에 앱의 이름 경로를 추가.
+
+
+3. 값이 없을 때 출력되는 문구를 추가
+mysite/settings/templates 에서
+'OPTIONS' 에서 'string_if_invalid' : 'Unknown Value!' 추가할 시
+없는 값 출력될 때 'Unknown Value!' 출력됨
+
+
+
+
+★★ URL 태그 사용은 중요!!  reverse 함수와 함께 사용. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======================================================================
+
+☆ 흐름을 파악하기 위해서 (연습을 위해)
+index.html 작성하고 -> urls 작성하고 -> views 작성 함.
+
+
+
+☆ 원래는 설계하는 대로 따로 작성해야함.
+
+model 따로 작성하고, 
+view 따로 작성하고,
+template 따로 작성.
+
+url로 view를 선택. 그 걸로 model, 그 걸로 template를 선택하여 작동.
+
+=======================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

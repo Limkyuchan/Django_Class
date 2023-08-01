@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파일 업로드</title>
+</head>
+<body>
+
+    {% comment %} 
+        파일을 업로드하기 위한 form 이라면 반드시 (필수)
+        <<  enctype 속성에 multipart/form-data   >> 를 적어줘야 한다. 
+    {% endcomment %}
+
+    <form method='post' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type='submit'>업로드</button>
+    </form>
+
+</body>
+</html>
+

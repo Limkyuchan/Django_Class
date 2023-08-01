@@ -1,0 +1,19 @@
+
+{% extends 'ex_template/base.html' %} 
+
+{% block title %}Example 01{% endblock %}
+{% block headline %}예제 1 (템플릿 변수){% endblock %}
+{% block content %}
+
+<!-- 템플릿 문법 -->
+n1 : {{ n1 }} <br>
+lst : {{ lst }} <br>
+tup : {{ tup }} <br>
+dic : {{ dic }} <br>
+<hr>
+{{ lst.0 }}, {{ lst.2 }} <br>
+{{ tup.1 }}, {{ tup.2 }} <br>
+{{ dic.a }}, {{ dic.c }} <br>
+unknown : [{{ un }}]
+
+{% endblock %}

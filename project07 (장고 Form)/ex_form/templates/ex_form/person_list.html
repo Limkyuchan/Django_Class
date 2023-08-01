@@ -1,0 +1,11 @@
+
+<p>person_list.html</p>
+
+{# object_list 에는 Person.objects.all() 이 담긴다 #}
+
+{% for object in object_list %}
+    <a href='{% url 'ex_form:exam08' object.id %}'>{{ object.name }}</a>
+    <a href='{% url 'ex_form:exam10' object.id %}'>[수정]</a>
+    <a href='{% url 'ex_form:exam11' object.id %}'>[삭제]</a>
+    <br>
+{% endfor %}
